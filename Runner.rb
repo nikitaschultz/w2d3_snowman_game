@@ -26,7 +26,7 @@ end
 
 def game_won(game)
   system("clear")
-  p @game.hidden_word
+  p @game.display_hidden_word
   p "⛄" * @game.player.lives
   p "Congratulations #{@game.player.name}!"
   p "You found the hidden word before the snowman melted!"
@@ -37,6 +37,7 @@ def game_lost(game)
 end
 
 def run_game(game)
+  get_data()
   while @game.result == "playing"
     p "⛄" * @game.player.lives
     if @game.guessed_letters.length != 0
@@ -48,12 +49,18 @@ def run_game(game)
     process_guess(@game, user_guess)
     system("clear")
   end
+
   if @game.result == "won"
     game_won(@game)
   elsif @game.result == "lost"
     game_lost(@game)
   end
+
+  p "Do you want to play again? (Y/N)"
+  play_again = gets.chomp()
+  if play_again.upcase() == "Y"
+    run_game(game)
+  end
 end
 
-get_data()
 run_game(@game)
