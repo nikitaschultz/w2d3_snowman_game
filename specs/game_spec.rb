@@ -17,15 +17,20 @@ class TestGame < MiniTest::Test
 
   def test_initialize_game
     assert_equal("Nikita", @game.player.name)
-    assert_equal("Password", @game.hidden_word.word)
+    assert_equal("PASSWORD", @game.hidden_word.word)
     assert_equal(0, @game.guessed_letters.length)
-    assert_equal("", @game.guess)
-    assert_equal("", @game.result)
+    assert_equal("playing", @game.result)
   end
 
   def test_guess_a_letter_changes_array_length
     @game.make_a_guess("a")
-    assert_equal(1, @game.guessed_letters.length)
+    @game.make_a_guess("b")
+    @game.make_a_guess("c")
+    assert_equal(3, @game.guessed_letters.length)
+  end
+
+  def test_guess_a_letter_types_a_string
+    assert_equal(true, @game.make_a_guess("alsidfj"))
   end
 
   def test_guess_correct
@@ -60,7 +65,25 @@ class TestGame < MiniTest::Test
     assert_equal("*A** W*RD", @game.display_hidden_word)
   end
 
+  def test_check_if_finished_won
+    @game.guessed_letters = ["w", "a", "o", "r", "d", "p", "s", "x", "v"]
+    @game.check_result
+    assert_equal("won", @game.result)
+  end
 
+  def test_check_if_finished_lost
+    @game.player.lives = 0
+    @game.guessed_letters = ["w", "a", "s"]
+    @game.check_result
+    assert_equal("lost", @game.result)
+  end
+
+  def test_check_if_finished_not_finished
+    @game.guessed_letters = ["w", "a", "o"]
+    @game.player.lives = 3
+    @game.check_result
+    assert_equal("playing", @game.result)
+  end
 
 
 end

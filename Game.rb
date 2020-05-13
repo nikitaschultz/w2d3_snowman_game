@@ -6,13 +6,12 @@ class Game
     @player = player
     @hidden_word = hidden_word
     @guessed_letters = []
-    @guess = ""
-    @result = ""
+    @result = "playing"
   end
 
   def make_a_guess(letter)
     if letter.length != 1
-      letter = letter.chomp()
+      letter = letter.chr
     end
     @guessed_letters.push(letter)
     if @hidden_word.check_letter(letter) == true
@@ -45,6 +44,16 @@ class Game
       end
     end
     return display_array.join()
+  end
+
+  def check_result
+    if player.lives == 0
+      @result = "lost"
+    elsif display_hidden_word = @hidden_word
+      @result = "won"
+    else
+      @result = "playing"
+    end
   end
 
 end

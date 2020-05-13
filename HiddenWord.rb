@@ -3,7 +3,7 @@ class HiddenWord
   attr_reader :word
 
   def initialize(word)
-    @word = word
+    @word = word.upcase
   end
 
   def check_letter(letter)
@@ -15,7 +15,5 @@ class HiddenWord
     end
     return false
   end
-
-  
 
 end
