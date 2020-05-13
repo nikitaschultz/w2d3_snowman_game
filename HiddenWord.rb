@@ -6,8 +6,16 @@ class HiddenWord
     @word = word
   end
 
-  def display
-    
+  def check_letter(letter)
+    word_array = @word.chars()
+    for character in word_array
+      if character.upcase == letter.upcase
+        return true
+      end
+    end
+    return false
   end
+
+  
 
 end
