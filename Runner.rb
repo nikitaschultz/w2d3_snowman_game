@@ -33,6 +33,7 @@ def game_won(game)
 end
 
 def game_lost(game)
+  p @game.hidden_word.word
   p "Oh no!  The snowman has melted!"
 end
 
