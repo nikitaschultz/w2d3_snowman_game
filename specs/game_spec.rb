@@ -65,6 +65,10 @@ class TestGame < MiniTest::Test
     assert_equal("*A** W*RD", @game.display_hidden_word)
   end
 
+  def test_display_hidden_word_initially
+    assert_equal("********", @game.display_hidden_word)
+  end
+
   def test_check_if_finished_won
     @game.guessed_letters = ["w", "a", "o", "r", "d", "p", "s", "x", "v"]
     @game.check_result
